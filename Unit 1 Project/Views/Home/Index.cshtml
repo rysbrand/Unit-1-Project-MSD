@@ -1,8 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Book List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="mb-2">
+    <a asp-controller="Book" asp-action="Add">Add New Book</a>
 </div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Book book in Model)
+        {
+            <tr>
+                <td>@book.title</td>
+                <td>@book.year</td>
+                <td>@book.rating</td>
+                <td>@book.Genre.genre</td>
+                <td>
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.bookID"> Edit </a>
+                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.bookID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Unit_1_Project.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BookContext")));
+
+builder.Services.AddRouting(Options =>
+{
+    Options.LowercaseUrls = true;
+    Options.AppendTrailingSlash = true;
+});
 
 var app = builder.Build();
 
@@ -17,6 +29,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 
 app.UseAuthorization();
 
